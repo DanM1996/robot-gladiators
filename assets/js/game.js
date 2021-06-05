@@ -1,24 +1,35 @@
-// fight function (now with parameter for enemy's name)
-  var fight = function(enemy) {
-    while (playerInfo.health > 0 && enemy.health > 0) { // so long as this is true, this runs
-      // ask player if they'd like to fight or run
-      var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+var fightOrSkip = function() {
+  // ask player if they'd like to fight or skip using fightOrSkip function
+  var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
   
+      // enter the conditional recursive function here!
+      if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid ansewr! Please try again.")
+        return fightOrSkip();
+      } 
+      promptFight = promptFight.toLowerCase();
       // if player picks "skip" confirm and then stop the loop
       if (promptFight === 'skip' || promptFight === 'SKIP') {
         // confirm player wants to skip
         var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-  
         // if yes (true), leave fight
         if (confirmSkip) {
           window.alert(playerInfo.name + ' has decided to skip this fight. Goodbye!');
           // subtract money for skipping
           playerInfo.money = Math.max(0, playerInfo.money - 10);
           console.log("Money left: ", playerInfo.money)
-          break;
+          return true;
         }
       }
-  
+    return false;
+    }
+// fight function (now with parameter for enemy's name)  
+var fight = function(enemy) {
+    while (playerInfo.health > 0 && enemy.health > 0) { // so long as this is true, this runs
+      if (fightOrSkip()) {
+        // if true, break the while loop and return to the for loop
+        break;
+      }
       // generate random damage value based on player's attack power
       var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
       // remove enemy's health by subtracting the amount set in the attack variable
