@@ -1,6 +1,6 @@
 // fight function (now with parameter for enemy's name)
   var fight = function(enemy) {
-    while (playerInfo.health > 0 && enemy.health > 0) {
+    while (playerInfo.health > 0 && enemy.health > 0) { // so long as this is true, this runs
       // ask player if they'd like to fight or run
       var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
   
@@ -69,7 +69,7 @@
       if (playerInfo.health  > 0) {
         // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
-  
+        debugger;
         // pick new enemy to fight based on the index of the enemy Names array
         var pickedEnemyObj = enemyInfo[i];
   
@@ -161,12 +161,19 @@
     return value;
   } 
 
-  var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+  var getPlayerName = function(){
+    var name = ""; //guarantees the loop is entered at least once to prompt the player
+    while (name === "" || name === null) {
+      name = prompt("What is your robot's name?");
+    }
+
+  }
+  var playerInfo = { //this is an object
+    name: getPlayerName(), 
     health: 100,
     attack: 10,
     money: 10,
-    reset: function() {
+    reset: function() { //this is a methood (function in an object)
         this.health = 100;
         this.attack = 10;
         this.money = 10;
