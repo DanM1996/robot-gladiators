@@ -137,28 +137,23 @@ var fight = function(enemy) {
   var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-      'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one "REFILL", "UPGRADE", or "LEAVE" to make a choice.'
+      'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter 1 for REFILL, 2 for UPGRADE, or 3 LEAVE.'
     );
   
     // use switch case to carry out action
+    shopOptionPrompt = parseInt(shopOptionPrompt);
     switch (shopOptionPrompt) {
-      case 'REFILL':
-      case 'refill':
+      case 1:
         playerInfo.refillHealth();
         break;
-      case 'UPGRADE':
-      case 'upgrade':
+      case 2:
         playerInfo.upgradeAttack();
         break;
-      case 'LEAVE':
-      case 'leave':
+      case 3:
         window.alert('Leaving the store.');
-  
-        // do nothing, so function will end
         break;
       default:
         window.alert('You did not pick a valid option. Try again.');
-  
         // call shop() again to force player to pick a valid option
         shop();
         break;
@@ -172,12 +167,13 @@ var fight = function(enemy) {
     return value;
   } 
 
-  var getPlayerName = function(){
-    var name = ""; //guarantees the loop is entered at least once to prompt the player
+  var getPlayerName = function() {
+    var name = ""; // guarantees the loop is entered at least once to prompt the player
     while (name === "" || name === null) {
       name = prompt("What is your robot's name?");
     }
-
+    console.log("Your robot's name is " + name);
+    return name;
   }
   var playerInfo = { //this is an object
     name: getPlayerName(), 
